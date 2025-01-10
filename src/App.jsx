@@ -3,6 +3,7 @@ import { useState } from 'react';
 export default function App() {
   const [text, setText] = useState('');
   const [todos, setTodos] = useState([]);
+  const [error, setError] = useState('');
 
   console.log('current todos', todos);
 
@@ -11,20 +12,24 @@ export default function App() {
   }
 
   function handleClick() {
+    if (text.trim() === '') {
+      setError('Please enter some text'); // Set error message if input is empty
+      return;
+    }
+
     setTodos((old) => {
       console.log('old', old);
       return [...old, text];
     });
 
     setText('');
+    setError(''); // Clear error message after successful addition
   }
 
   function handleDelete(i) {
     setTodos((oldTodos) => {
       let updated = [...oldTodos];
-
       updated.splice(i, 1);
-
       return updated;
     });
   }
@@ -43,6 +48,13 @@ export default function App() {
     >
       {/* Welcome Message */}
       <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Welcome to this webpage</h1>
+
+      {/* Error Message */}
+      {error && (
+        <p style={{ color: 'red', textAlign: 'center', fontWeight: 'bold' }}>
+          {error}
+        </p>
+      )}
 
       <input
         value={text}
@@ -95,3 +107,4 @@ export default function App() {
     </div>
   );
 }
+
