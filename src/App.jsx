@@ -32,7 +32,7 @@ export default function App() {
   return (
     <div
       style={{
-        background: 'blue',
+        background: '#d66406',
         color: 'white',
       }}
     >
